@@ -1,7 +1,7 @@
 # Challenges and Process of the Kumia Build
 
-# First Challenge: Sass (Scss) package wasn't installed
-This approach didn't install the package well, I think because Vite is what I used to bootstrap the project 
+## First Challenge: Sass (Scss) package wasn't installed
+The command below didn't install the package. I think its because Vite was what was used to bootstrap the project.
 ```
 $ npm install -g sass
 ```
