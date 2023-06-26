@@ -1,11 +1,18 @@
 # Challenges and Process of the Kumia Build
 
-## First Challenge: Sass (Scss) package wasn't installed
-The command below didn't install the package. I think its because Vite was what was used to bootstrap the project.
+## Import Statements Increasing and deforming the code
+
+To make this better, I created a root file named `index.jsx` inside the `pages` folder where I exported all the needed imports. Now, I can import all the components with a one-liner
+
+From this:
+
+```js
+import Home from "./pages/home/Home";
+import Contact from "./pages/contact/Contact";
 ```
-$ npm install -g sass
-```
-This command solved the issue. Thanks to (StackOverflow)[https://stackoverflow.com/questions/65589265/vite-how-to-use-sass]
-```
-$ npm install -D sass
+
+To this:
+
+```js
+import { Home, Contact } from "./pages";
 ```

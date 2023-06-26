@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Admin.module.scss";
+import "./Admin.css";
 
 const Admin = () => {
   return <div>Admin</div>;
