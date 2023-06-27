@@ -12,8 +12,8 @@ function App() {
         {/* Header and Footer should be outside the Routes since they appear in all pages */}
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/contact-us" element={<Contact />} />
         </Routes>
         <Footer />
       </BrowserRouter>
