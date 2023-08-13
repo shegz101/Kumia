@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "./Header.css";
 import LogoImage from "../../assets/logo.png";
 import { FiShoppingCart } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { SearchIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -10,7 +10,9 @@ import {
   ListItem,
   Stack,
   UnorderedList,
-  Text,
+  InputGroup,
+  Input,
+  InputRightElement,
 } from "@chakra-ui/react";
 
 const cart_count = 0;
@@ -36,38 +38,44 @@ const Header = () => {
     setActiveIndex(index);
   };
 
-  const items = ["Home", "Contact Us"];
+  //create an array of the navs
+  const navs = ["Home", "Categories", "About Us", "Contact Us"];
   return (
     <Box
-      w={{ base: "98%", lg: "95%" }}
-      h="50px"
+      w={"100%"}
+      bg={"#FFFFFF"}
+      h="70px"
       display="flex"
       alignItems="center"
+      alignContent={"center"}
       justifyContent="space-between"
-      ml={{ base: "1%", md: "2%", lg: "2.5%" }}
-      mr={{ base: "1%", md: "2%", lg: "2.5%" }}
+      pl={{ base: "1%", md: "2%", lg: "2.5%" }}
+      pr={{ base: "1%", md: "2%", lg: "2.5%" }}
+      pt="20px"
+      pb="20px"
     >
       {/* Logo */}
-      <Box>
-        <img src={LogoImage} style={{ width: "80px" }} alt="logo" />
+      <Box mb={"20px"}>
+        <img src={LogoImage} alt="logo" />
       </Box>
+
       {/* Nav links */}
       <Box>
         <UnorderedList
-          mt="20px"
           display={{ base: "none", lg: "flex" }}
           justifyContent="center"
         >
           <List fontWeight="medium">
-            <Stack direction="row" spacing={6}>
-              {items.map((item, index) => (
+            <Stack direction="row" spacing={10}>
+              {/* dynamically mapped through the navs */}
+              {navs.map((nav, index) => (
                 <ListItem
                   key={index}
                   position="relative"
                   onClick={() => handleItemClick(index)}
                   cursor="pointer"
                 >
-                  <Link to={`/${item.toLowerCase().replace(" ", "-")}`}>
+                  <Link to={`/${nav.toLowerCase().replace(" ", "-")}`}>
                     {activeIndex === index && (
                       <Box
                         position="absolute"
@@ -81,7 +89,7 @@ const Header = () => {
                         borderRadius="sm"
                       />
                     )}
-                    {item}
+                    {nav}
                   </Link>
                 </ListItem>
               ))}
@@ -89,14 +97,28 @@ const Header = () => {
           </List>
         </UnorderedList>
       </Box>
+
+      {/* Search box */}
+      <Box>
+        <InputGroup>
+          <Input
+            type="text"
+            placeholder="Search for a Product"
+            borderRadius="2xl"
+            focusBorderColor="#F5F5F5"
+            outline="none"
+            bg={"#F5F5F5"}
+            w="350px"
+          />
+          <InputRightElement pointerEvents="none">
+            <SearchIcon color="black.200" />
+          </InputRightElement>
+        </InputGroup>
+      </Box>
       {/* Sign in & Cart */}
-      <Box mt="20px">
+      <Box>
         {/* cart */}
         <Stack direction="row" spacing={4}>
-          <Text mt="10px" fontSize="15px" fontWeight="medium" cursor="pointer">
-            My Orders
-          </Text>
-
           {/* Cart Button */}
           {cart_btn}
 
