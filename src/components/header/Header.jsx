@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import "./Header.css";
 import LogoImage from "../../assets/logo.png";
 import { FiShoppingCart } from "react-icons/fi";
+import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import { SearchIcon } from "@chakra-ui/icons";
 import {
@@ -31,6 +33,19 @@ const cart_btn = (
   </Button>
 );
 
+const HamburgerIcon = ({ onClick }) => (
+  <Button
+    size="md"
+    bg="#0000ff"
+    color="#ffffff"
+    _hover={{ bg: "#6699FF" }}
+    display={{ base: "block", md: "none" }}
+    onClick={onClick}
+  >
+    <GiHamburgerMenu />
+  </Button>
+);
+
 const Header = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -38,12 +53,16 @@ const Header = () => {
     setActiveIndex(index);
   };
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
   //create an array of the navs
-  const navs = ["Home", "Categories", "About Us", "Contact Us"];
+  const navs = ["Home", "Contact Us"];
   return (
     <Box
       w={"100%"}
-      bg={"#FFFFFF"}
       h="70px"
       display="flex"
       alignItems="center"
@@ -53,6 +72,8 @@ const Header = () => {
       pr={{ base: "1%", md: "2%", lg: "2.5%" }}
       pt="20px"
       pb="20px"
+      boxShadow="md"
+      bg="#FFFFFF"
     >
       {/* Logo */}
       <Box mb={"20px"}>
@@ -99,7 +120,7 @@ const Header = () => {
       </Box>
 
       {/* Search box */}
-      <Box>
+      <Box display={{ base: "none", md: "block" }}>
         <InputGroup>
           <Input
             type="text"
@@ -126,21 +147,39 @@ const Header = () => {
             size="md"
             bg="#0000ff"
             color="white"
+            display={{ base: "none", md: "block" }}
             _hover={{ bg: "#6699FF" }}
           >
             Sign in
           </Button>
+
+          <HamburgerIcon onClick={toggleMenu} />
         </Stack>
+      </Box>
+      {/* Mobile Menu Overlay */}
+      <Box
+        className={`mobile-menu-overlay ${isMenuOpen ? "active" : ""}`}
+        display={{ base: isMenuOpen ? "block" : "none", md: "none" }}
+        top="72px"
+        right="0"
+        width="50%"
+        height={`calc(100% - 70px)`}
+        position="fixed"
+        bg={"#F5F5F5"}
+        zIndex="2"
+        overflowY="auto"
+        transition="right 0.3s ease-in-out"
+      >
+        <div className="mobile-menu-content">
+          <Link to="/">Home</Link>
+          <Link to="/contact-us">Contact Us</Link>
+          <Button size="md" bg="#0000ff" color="white">
+            Sign in
+          </Button>
+        </div>
       </Box>
     </Box>
   );
 };
 
 export default Header;
-
-// sx={{
-//   "&:hover": {
-//     // Your custom hover styles here
-//     backgroundColor: "rgba(249, 250, 251, 0.5)",
-//   },
-// }}
