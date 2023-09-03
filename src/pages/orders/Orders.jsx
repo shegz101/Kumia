@@ -1,8 +1,12 @@
 import React from "react";
-import "./Orders.css";
+import { Box, Text } from "@chakra-ui/react";
 
 const Orders = () => {
-  return <div>Orders</div>;
+  return (
+    <Box>
+      <Text>Orders Page</Text>
+    </Box>
+  );
 };
 
 export default Orders;

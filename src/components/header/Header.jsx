@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "./Header.css";
 import LogoImage from "../../assets/logo.png";
 import { FiShoppingCart } from "react-icons/fi";
@@ -63,7 +63,7 @@ const Header = () => {
   const [navOpen, setNavOpen] = useState(false);
 
   //create an array of the navs
-  const navs = ["Home", "Contact Us"];
+  const navs = ["Home", "Contact Us", "Orders"];
   return (
     <Box
       w={"100%"}
@@ -157,15 +157,17 @@ const Header = () => {
             {cart_btn}
 
             {/* Sign in Button */}
-            <Button
-              size="md"
-              bg="#0000ff"
-              color="white"
-              display={{ base: "none", lg: "block" }}
-              _hover={{ bg: "#6699FF" }}
-            >
-              Sign in
-            </Button>
+            <Link to="/signin">
+              <Button
+                size="md"
+                bg="#0000ff"
+                color="white"
+                display={{ base: "none", lg: "block" }}
+                _hover={{ bg: "#6699FF" }}
+              >
+                Sign in
+              </Button>
+            </Link>
 
             {/* Hamburger Icon */}
             <HamburgerIcon
@@ -194,9 +196,12 @@ const Header = () => {
           <div className="mobile-menu-content">
             <Link to="/">Home</Link>
             <Link to="/contact-us">Contact Us</Link>
-            <Button size="md" bg="#0000ff" color="white">
-              Sign in
-            </Button>
+            <Link to="/orders">Orders</Link>
+            <Link to="/signin">
+              <Button size="md" bg="#0000ff" color="white">
+                Sign in
+              </Button>
+            </Link>
           </div>
         </Box>
       </Box>
@@ -212,8 +217,8 @@ const Header = () => {
             outline="none"
             bg={"#F5F5F5"}
             w="100vw"
-            ml="1.5%"
-            mr="1.5%"
+            ml="1%"
+            mr="1%"
           />
           <InputRightElement pointerEvents="none">
             <SearchIcon color="black.200" />
