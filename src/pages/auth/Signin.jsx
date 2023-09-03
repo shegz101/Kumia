@@ -19,7 +19,7 @@ const Card = ({ cardContent }) => (
   <Box
     boxShadow="lg"
     rounded="md"
-    width="max-content"
+    width={{base:"90vw", lg:"max-content"}}
     height="max-content"
     p="12px"
   >
@@ -57,7 +57,7 @@ const Content = ({ onclick, show }) => (
       </InputRightElement>
     </InputGroup>
 
-    <Button w="400px" color="white" backgroundColor="#0000ff" _hover={{ bg: "#6699FF" }}>
+    <Button w={{base:"100%", lg:"400px"}} color="white" backgroundColor="#0000ff" _hover={{ bg: "#6699FF" }}>
       Login
     </Button>
 
@@ -67,13 +67,13 @@ const Content = ({ onclick, show }) => (
 
     <Text>-- or --</Text>
 
-    <Button w="400px" backgroundColor="#ffffff" border='2px' borderColor='gray.300' leftIcon={<FcGoogle />}>
+    <Button w={{base:"100%", lg:"400px"}} backgroundColor="#ffffff" border='2px' borderColor='gray.300' leftIcon={<FcGoogle />}>
       Login With Google
     </Button>
-    <Button w="400px" backgroundColor="#1DA1F2" _hover={{ bg: "#6699FF" }} color="#ffffff" leftIcon={<FaTwitter />} variant='solid'>
+    <Button w={{base:"100%", lg:"400px"}} backgroundColor="#1DA1F2" _hover={{ bg: "#6699FF" }} color="#ffffff" leftIcon={<FaTwitter />} variant='solid'>
       Login With Twitter
     </Button>
-    <Button w="400px" backgroundColor="#000000" _hover={{ bg: "#00000080" }} color="#ffffff" leftIcon={<FaGithub />}>
+    <Button w={{base:"100%", lg:"400px"}} backgroundColor="#000000" _hover={{ bg: "#00000080" }} color="#ffffff" leftIcon={<FaGithub />}>
       Login With GitHub
     </Button>
   </Stack>
@@ -91,7 +91,7 @@ const Signin = () => {
       paddingLeft="50px"
       paddingRight="50px"
     >
-      <Box>
+      <Box display={{base: "none", md:"block"}}>
         <img src={loginImg} alt="login preset" style={{ width: "500px" }} />
       </Box>
 
