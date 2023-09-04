@@ -62,7 +62,7 @@ const Content = ({ onclick, show }) => (
     </Button>
 
     <Link to="/reset" style={{alignSelf:"flex-start"}}>
-      <Text>forgot Password</Text>
+      <Text>Reset Password</Text>
     </Link>
 
     <Text>-- or --</Text>
@@ -76,6 +76,8 @@ const Content = ({ onclick, show }) => (
     <Button w={{base:"100%", lg:"400px"}} backgroundColor="#000000" _hover={{ bg: "#00000080" }} color="#ffffff" leftIcon={<FaGithub />}>
       Login With GitHub
     </Button>
+
+    <Text>Don't have an account? <Link to="/signup"><span style={{fontWeight:"bold"}}>Register</span></Link></Text>
   </Stack>
 );
 
