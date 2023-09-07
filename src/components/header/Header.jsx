@@ -196,7 +196,7 @@ const Header = () => {
           <div className="mobile-menu-content">
             <Link to="/">Home</Link>
             <Link to="/contact-us">Contact Us</Link>
-            <Link to="/orders">Orders</Link>
+            <Link to="/orders">Order</Link>
             <Link to="/signin">
               <Button size="md" bg="#0000ff" color="white">
                 Sign in
