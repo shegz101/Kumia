@@ -2,7 +2,7 @@
 
 ## Import Statements Increasing and deforming the code
 
-To make this better, I created a root file named `index.jsx` inside the `pages` folder where I exported all the needed imports. Now, I can import all the components with a one-liner
+To make this better, I created a root file named `index.jsx` inside the `pages` folder where I exported all the needed imports. Now, I can import all the components with a one-liner.
 
 From this:
 
