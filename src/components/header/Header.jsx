@@ -63,7 +63,7 @@ const Header = () => {
   const [navOpen, setNavOpen] = useState(false);
 
   //create an array of the navs
-  const navs = ["Home", "Contact Us", "Orders"];
+  const navs = ["", "Contact Us", "Orders"];
   return (
     <Box
       w={"100%"}
@@ -122,7 +122,9 @@ const Header = () => {
                           borderRadius="sm"
                         />
                       )}
-                      {nav}
+                      {
+                        nav === "" ? "Home" : nav
+                      }
                     </Link>
                   </ListItem>
                 ))}

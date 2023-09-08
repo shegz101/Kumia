@@ -1,3 +1,4 @@
+import React from "react";
 import "./Loader.css";
 import loaderImg from "../../assets/loader.gif";
 import ReactDOM from "react-dom";
