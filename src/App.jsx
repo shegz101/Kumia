@@ -13,7 +13,7 @@ function App() {
         {/* Header and Footer should be outside the Routes since they appear in all pages */}
         <Header />
         <Routes>
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/contact-us" element={<Contact />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/signin" element={<Signin />} />
