@@ -116,7 +116,11 @@ const Signin = () => {
         const user = userCredential.user;
         setIsloading(false);
         toast.success("sign in successful!");
-        navigate("/");
+        // Delay the navigation!
+        setTimeout(() => {
+          // Navigate after the toast notification is shown
+          navigate("/");
+        }, 2000); 
       })
       .catch((error) => {
         const errorMessage = error.message;

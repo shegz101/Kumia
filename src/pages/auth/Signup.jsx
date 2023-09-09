@@ -47,7 +47,11 @@ function Signup() {
         const user = userCredential.user;
         setIsloading(false);
         toast.success("sign up successful!");
-        navigate("/signin"); 
+        // Delay the navigation!
+        setTimeout(() => {
+          // Navigate after the toast notification is shown
+          navigate("/signin");
+        }, 2000); 
       })
       .catch((error) => {
         const errorMessage = error.message;
