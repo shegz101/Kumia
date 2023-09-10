@@ -64,6 +64,7 @@ const Header = () => {
 
   //create an array of the navs
   const navs = ["", "Contact Us", "Orders"];
+  
   return (
     <Box
       w={"100%"}
