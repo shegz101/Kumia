@@ -16,4 +16,3 @@ To this:
 ```js
 import { Home, Contact } from "./pages";
 ```
-## Next
