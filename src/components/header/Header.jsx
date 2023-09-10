@@ -3,7 +3,12 @@ import "./Header.css";
 import LogoImage from "../../assets/logo.png";
 import { FiShoppingCart } from "react-icons/fi";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { MdOutlineLogout } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase/firebaseconfig";
+// import toastify
+import { toast } from 'react-toastify';
 import { SearchIcon, CloseIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -59,6 +64,21 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
     setNavOpen(!navOpen);
   };
+
+  // sign out user
+  const logOut = () => {
+    signOut(auth).then(() => {
+      toast.success("sign out successful!");
+      // Delay the navigation!
+      setTimeout(() => {
+        // Navigate after the toast notification is shown
+        navigate("/");
+      }, 2000); 
+    }).catch((error) => {
+      const errorMessage = error.message;
+      toast.error({errorMessage});
+    });
+  }
 
   const [navOpen, setNavOpen] = useState(false);
 
@@ -171,6 +191,18 @@ const Header = () => {
                 Sign in
               </Button>
             </Link>
+
+            {/* Sign out Button */}
+            <Button
+              size="md"
+              bg="#0000ff"
+              color="white"
+              display={{ base: "none", lg: "block" }}
+              _hover={{ bg: "#6699FF" }}
+              onClick={logOut}
+            >
+              <MdOutlineLogout/>
+            </Button>
 
             {/* Hamburger Icon */}
             <HamburgerIcon
