@@ -18,8 +18,7 @@ import { Loader } from "../../components";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../../firebase/firebaseconfig';
 // import toastify
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 const Card = ({ cardContent }) => (
   <Box
@@ -133,7 +132,6 @@ const Signin = () => {
 
   return (
     <>
-      <ToastContainer />
       {isLoading && <Loader/>}
       <Box
       display="flex"
