@@ -1,4 +1,4 @@
-# Challenges and Process of the Kumia Build
+# Challenges and the Process of the Kumia Build
 
 ## Import Statements Increasing and deforming the code
 
