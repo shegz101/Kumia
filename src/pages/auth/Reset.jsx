@@ -5,13 +5,17 @@ import {
   Stack,
   InputGroup,
   Input,
-  InputRightElement,
   InputLeftElement,
   Button,
   Text,
 } from "@chakra-ui/react";
 import resetImg from "../../assets/forgot.png";
-import { ViewIcon, ViewOffIcon, LockIcon, EmailIcon, ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
+import { EmailIcon, ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { auth } from '../../firebase/firebaseconfig';
+// import toastify
+import { toast } from 'react-toastify';
+import { Loader } from "../../components";
 
 const Card = ({ cardContent }) => (
   <Box
@@ -25,37 +29,19 @@ const Card = ({ cardContent }) => (
   </Box>
 );
 
-const Content = ({ onclick, show }) => (
+const Content = ({ email, setEmail, resetPassword }) => (
   <Stack  display="flex" flexDirection="column" spacing={3}>
     <Text color="#0000ff" fontSize={25} alignSelf="center" fontWeight="semibold">Reset Password</Text>
 
     <InputGroup size="lg">
-      <Input placeholder="janehop@gmail.com"  type="email" />
+      <Input placeholder="janehop@gmail.com"  type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
 
       <InputLeftElement pointerEvents='none' size={6}>
         <EmailIcon color='gray.300' />
       </InputLeftElement>
     </InputGroup>
 
-    <InputGroup size="lg">
-      <Input
-        w="400px"
-        type={show ? "text" : "password"}
-        placeholder="Enter password"
-      />
-
-      <InputLeftElement pointerEvents='none' size={6}>
-        <LockIcon color='gray.300' />
-      </InputLeftElement>
-
-      <InputRightElement pr="5px">
-        <Button h="1.75rem" size="sm" onClick={onclick}>
-          {show ? <ViewIcon /> : <ViewOffIcon />}
-        </Button>
-      </InputRightElement>
-    </InputGroup>
-
-    <Button w={{base:"100%", lg:"400px"}} color="white" backgroundColor="#0000ff" _hover={{ bg: "#6699FF" }}>
+    <Button w={{base:"100%", lg:"400px"}} color="white" backgroundColor="#0000ff" _hover={{ bg: "#6699FF" }} onClick={resetPassword}>
       Reset Password
     </Button>
 
@@ -64,30 +50,51 @@ const Content = ({ onclick, show }) => (
         <ArrowBackIcon/> <span><Link to="/signin">Login</Link></span>
       </Text>
       <Text>
-      <span><Link to="/signup">Register</Link></span> <ArrowForwardIcon/> 
+        <span><Link to="/signup">Register</Link></span> <ArrowForwardIcon/> 
       </Text>
     </Box>
   </Stack>
 );
 
 function Reset() {
-  const [show, setShow] = useState(false);
-  const handleClick = () => setShow(!show);
+  const [email, setEmail] = useState("");
+
+  // track loading state
+  const [isLoading, setIsloading] = useState(false);
+
+  // Reset Password using Email
+  const resetPassword = (e) => {
+    e.preventDefault();
+    setIsloading(true);
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        setIsloading(false);
+        toast.success("Check your email for reset link!");
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        toast.error({errorMessage});
+        setIsloading(false);
+      });
+    setEmail("");
+  }
+
   return (
-    <Box
+    <>
+      {isLoading && <Loader/>}
+      <Box
       display="flex"
       justifyContent="center"
       alignItems="center"
       marginTop="35px"
-      paddingLeft="50px"
-      paddingRight="50px"
-    >
-      <Card cardContent={<Content onclick={handleClick} show={show} />} />
+      >
+        <Card cardContent={<Content email={email} setEmail={setEmail} resetPassword={resetPassword}/>} />
 
-      <Box display={{base: "none", md:"block"}}>
-        <img src={resetImg} alt="login preset" style={{ width: "500px" }} />
+        <Box display={{base: "none", md:"block"}}>
+          <img src={resetImg} alt="login preset" style={{ width: "500px" }} />
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 }
 
