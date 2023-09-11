@@ -70,8 +70,6 @@ function Signup() {
       justifyContent="center"
       alignItems="center"
       marginTop="20px"
-      paddingLeft="50px"
-      paddingRight="50px"
       >
         {/* Box 1 */}
         <Box
