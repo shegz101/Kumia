@@ -15,7 +15,7 @@ import {
 import { ViewIcon, ViewOffIcon, LockIcon, EmailIcon } from "@chakra-ui/icons";
 import loginImg from "../../assets/login.png";
 import { Loader } from "../../components";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth } from '../../firebase/firebaseconfig';
 // import toastify
 import { toast } from 'react-toastify';
@@ -32,7 +32,7 @@ const Card = ({ cardContent }) => (
   </Box>
 );
 
-const Content = ({ onclick, show, email, setEmail, password, setPassword, signIn }) => (
+const Content = ({ onclick, show, email, setEmail, password, setPassword, signIn, signInWithGoogle }) => (
   <Stack alignItems="center" display="flex" flexDirection="column" spacing={3}>
     <Text color="#0000ff" fontSize={25} fontWeight="semibold">Login</Text>
 
@@ -74,7 +74,7 @@ const Content = ({ onclick, show, email, setEmail, password, setPassword, signIn
 
     <Text>-- or --</Text>
 
-    <Button w={{base:"100%", lg:"400px"}} backgroundColor="#ffffff" border='2px' borderColor='gray.300' leftIcon={<FcGoogle />}>
+    <Button w={{base:"100%", lg:"400px"}} backgroundColor="#ffffff" border='2px' borderColor='gray.300' leftIcon={<FcGoogle />} onClick={signInWithGoogle}>
       Login With Google
     </Button>
     <Button w={{base:"100%", lg:"400px"}} backgroundColor="#1DA1F2" _hover={{ bg: "#6699FF" }} color="#ffffff" leftIcon={<FaTwitter />} variant='solid'>
@@ -130,6 +130,28 @@ const Signin = () => {
     setPassword("");
   }
 
+  //sign in user with Google
+  const provider = new GoogleAuthProvider();
+  const signInWithGoogle = (e) => {
+    e.preventDefault();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // The signed-in user info.
+        const user = result.user;
+        console.log(user);
+        toast.success("sign in successful!");
+        // Delay the navigation!
+        setTimeout(() => {
+          // Navigate after the toast notification is shown
+          navigate("/");
+        }, 2000);
+      }).catch((error) => {
+        // Handle Errors here.
+        const errorMessage = error.message;
+        toast.error({errorMessage});
+      });
+  }
+
   return (
     <>
       {isLoading && <Loader/>}
@@ -145,7 +167,7 @@ const Signin = () => {
           <img src={loginImg} alt="login preset" style={{ width: "500px" }} />
         </Box>
 
-        <Card cardContent={<Content onclick={handleClick} show={show} password={password} email={email} setEmail={setEmail} setPassword={setPassword} signIn={signIn} />} />
+        <Card cardContent={<Content onclick={handleClick} show={show} password={password} email={email} setEmail={setEmail} setPassword={setPassword} signIn={signIn} signInWithGoogle={signInWithGoogle}/>} />
       </Box>
     </>
   );
