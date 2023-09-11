@@ -71,11 +71,13 @@ const Header = () => {
 
   const [userName, setUserName] = useState("");
   const [userPics, setUserPics] = useState("");
+  const [userId, setUserId] = useState("");
   // Monitor the currentlt signed-in user
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const uid = user.uid;
+        setUserId(uid);
         console.log(user);
         setUserName(user.displayName);
         setUserPics(user.photoURL);
@@ -198,12 +200,16 @@ const Header = () => {
           {/* cart */}
           <Stack direction="row" spacing={4}>
             {/* Display user name */}
-            <Box display="flex" alignItems="center">
-              <img src={userPics ? userPics: "https://i.stack.imgur.com/34AD2.jpg"} style={{ width:"30px", height:"30px", borderRadius:"50%"}}/>
-              <Text paddingLeft={2}>
-                Hi {userName}
-              </Text>
-            </Box>        
+            {
+              userId.length > 0 ? (
+                <Box display="flex" alignItems="center">
+                  <img src={userPics ? userPics: "https://i.stack.imgur.com/34AD2.jpg"} style={{ width:"30px", height:"30px", borderRadius:"50%"}}/>
+                  <Text paddingLeft={2}>
+                    Hi {userName}
+                  </Text>
+                </Box> 
+              ) : ""
+            }       
 
             {/* Cart Button */}
             {cart_btn}
