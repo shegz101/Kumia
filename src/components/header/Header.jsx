@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Header.css";
 import LogoImage from "../../assets/logo.png";
 import { FiShoppingCart } from "react-icons/fi";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdOutlineLogout } from "react-icons/md";
-import { Link } from "react-router-dom";
-import { signOut } from "firebase/auth";
+// import { CgProfile } from "react-icons/cg";
+import { Link, useNavigate } from "react-router-dom";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebaseconfig";
 // import toastify
 import { toast } from 'react-toastify';
@@ -14,6 +15,7 @@ import {
   Box,
   Button,
   List,
+  Text,
   ListItem,
   Stack,
   UnorderedList,
@@ -54,6 +56,8 @@ const HamburgerIcon = ({ onClick, buttonType }) => (
 const Header = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const navigate = useNavigate();
+
   const handleItemClick = (index) => {
     setActiveIndex(index);
   };
@@ -64,6 +68,23 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
     setNavOpen(!navOpen);
   };
+
+  const [userName, setUserName] = useState("");
+  const [userPics, setUserPics] = useState("");
+  // Monitor the currentlt signed-in user
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        console.log(user);
+        setUserName(user.displayName);
+        setUserPics(user.photoURL);
+      } else {
+        setUserName("");
+        setUserPics("");
+      }
+    });
+  }, [])
 
   // sign out user
   const logOut = () => {
@@ -176,6 +197,14 @@ const Header = () => {
         <Box>
           {/* cart */}
           <Stack direction="row" spacing={4}>
+            {/* Display user name */}
+            <Box display="flex" alignItems="center">
+              <img src={userPics ? userPics: "https://i.stack.imgur.com/34AD2.jpg"} style={{ width:"30px", height:"30px", borderRadius:"50%"}}/>
+              <Text paddingLeft={2}>
+                Hi {userName}
+              </Text>
+            </Box>        
+
             {/* Cart Button */}
             {cart_btn}
 
