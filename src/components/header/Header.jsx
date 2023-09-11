@@ -237,6 +237,9 @@ const Header = () => {
                 Sign in
               </Button>
             </Link>
+            <Button size="md" bg="#0000ff" color="white" onClick={logOut}>
+              Signout
+            </Button>
           </div>
         </Box>
       </Box>
