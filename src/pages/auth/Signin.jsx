@@ -77,12 +77,6 @@ const Content = ({ onclick, show, email, setEmail, password, setPassword, signIn
     <Button w={{base:"100%", lg:"400px"}} backgroundColor="#ffffff" border='2px' borderColor='gray.300' leftIcon={<FcGoogle />} onClick={signInWithGoogle}>
       Login With Google
     </Button>
-    <Button w={{base:"100%", lg:"400px"}} backgroundColor="#1DA1F2" _hover={{ bg: "#6699FF" }} color="#ffffff" leftIcon={<FaTwitter />} variant='solid'>
-      Login With Twitter
-    </Button>
-    <Button w={{base:"100%", lg:"400px"}} backgroundColor="#000000" _hover={{ bg: "#00000080" }} color="#ffffff" leftIcon={<FaGithub />}>
-      Login With GitHub
-    </Button>
 
     <Text>Don't have an account? <Link to="/signup"><span style={{fontWeight:"bold"}}>Register</span></Link></Text>
   </Stack>
@@ -112,7 +106,7 @@ const Signin = () => {
 
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
+        // const user = userCredential.user;
         setIsloading(false);
         toast.success("sign in successful!");
         // Delay the navigation!
@@ -138,7 +132,7 @@ const Signin = () => {
       .then((result) => {
         // The signed-in user info.
         const user = result.user;
-        console.log(user);
+        // console.log(user);
         toast.success("sign in successful!");
         // Delay the navigation!
         setTimeout(() => {
@@ -160,8 +154,6 @@ const Signin = () => {
       justifyContent="center"
       alignItems="center"
       marginTop="20px"
-      paddingLeft="50px"
-      paddingRight="50px"
       >
         <Box display={{base: "none", md:"block"}}>
           <img src={loginImg} alt="login preset" style={{ width: "500px" }} />
