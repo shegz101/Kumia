@@ -23,6 +23,9 @@ import {
   Input,
   InputRightElement,
 } from "@chakra-ui/react";
+// Manage everything about REDUX
+import { useDispatch } from "react-redux";
+import { REMOVE_ACTIVE_USER, SET_USER_TO_ACTIVE } from "../../redux/features/authSlice";
 
 const cart_count = 0;
 
@@ -58,6 +61,8 @@ const Header = () => {
 
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+
   const handleItemClick = (index) => {
     setActiveIndex(index);
   };
@@ -78,15 +83,32 @@ const Header = () => {
       if (user) {
         const uid = user.uid;
         setUserId(uid);
-        console.log(user);
-        setUserName(user.displayName);
+        // create a logic for users that their displayname is Null
+        if (user.displayName === null) {
+          // create a default display Name by slicing out "@gmail.com" from the user's email
+          const defaultName = user.email.substring(0, user.email.indexOf("@"));
+          // extract the first character in the defaultName and make it an uppercase
+          const firstChar = defaultName.charAt(0).toUpperCase();
+          const newUserName = firstChar + defaultName.slice(1);
+          setUserName(newUserName);
+        } else {
+          setUserName(user.displayName);
+        }
+        // console.log(user);
         setUserPics(user.photoURL);
+        // dispatch all the necessary information that comes with being an active user
+        dispatch(SET_USER_TO_ACTIVE({
+          userName: user.displayName ? user.displayName : userName,
+          userMail: user.email,
+          userId: user.uid,
+        }))
       } else {
+        dispatch(REMOVE_ACTIVE_USER())
         setUserName("");
         setUserPics("");
       }
     });
-  }, [])
+  }, [dispatch, userName])
 
   // sign out user
   const logOut = () => {
