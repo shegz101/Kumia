@@ -29,7 +29,7 @@ const authSlice = createSlice({
   }
 });
 
-export const {SET_USER_TO_ACTIVE, REMOVE_ACTIVE_USER} = authSlice.actions
+export const { SET_USER_TO_ACTIVE, REMOVE_ACTIVE_USER } = authSlice.actions;
 
 export const selectUserLoginState = (state) => state.auth.isUserLoggedIn;
 export const selectUserName = (state) => state.auth.userName;
