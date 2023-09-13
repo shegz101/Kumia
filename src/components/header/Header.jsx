@@ -34,10 +34,13 @@ const cart_btn = (
     size="md"
     bg="#0000ff"
     color="white"
+    width={{ base: "max-content",}}
     _hover={{ bg: "#6699FF" }}
     rightIcon={cart_count}
     gap={1}
     variant="solid"
+    p={{base: "2px", md: "10px"}}
+    marginRight={{ base: '-10px', md: '20px'}}
   >
     <FiShoppingCart />
   </Button>
@@ -227,7 +230,7 @@ const Header = () => {
             {
               userId.length > 0 ? (
                 <SigninDisplay>
-                  <Box display="flex" alignItems="center">
+                  <Box display="flex" alignItems="center" marginLeft={{ base: "10px", md: "none"}}>
                     <img src={userPics ? userPics: "https://i.stack.imgur.com/34AD2.jpg"} style={{ width:"30px", height:"30px", borderRadius:"50%"}}/>
                     <Text paddingLeft={2} style={{ color: "#0000ff"}}>
                       Hi {userName}
