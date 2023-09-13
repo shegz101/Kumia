@@ -3,7 +3,6 @@ import "./Header.css";
 import LogoImage from "../../assets/logo.png";
 import { FiShoppingCart } from "react-icons/fi";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { MdOutlineLogout } from "react-icons/md";
 // import { CgProfile } from "react-icons/cg";
 import { Link, useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
@@ -26,6 +25,7 @@ import {
 // Manage everything about REDUX
 import { useDispatch } from "react-redux";
 import { REMOVE_ACTIVE_USER, SET_USER_TO_ACTIVE } from "../../redux/features/authSlice";
+import SigninDisplay, { SignoutDisplay } from "../dynamicDisplay/dynamicDisplay";
 
 const cart_count = 0;
 
@@ -189,7 +189,9 @@ const Header = () => {
                         />
                       )}
                       {
-                        nav === "" ? "Home" : nav
+                        nav === "" ? "Home" : (
+                          nav === "Orders" ? <SigninDisplay>{"Orders"}</SigninDisplay> : nav
+                        )
                       }
                     </Link>
                   </ListItem>
@@ -224,12 +226,14 @@ const Header = () => {
             {/* Display user name */}
             {
               userId.length > 0 ? (
-                <Box display="flex" alignItems="center">
-                  <img src={userPics ? userPics: "https://i.stack.imgur.com/34AD2.jpg"} style={{ width:"30px", height:"30px", borderRadius:"50%"}}/>
-                  <Text paddingLeft={2}>
-                    Hi {userName}
-                  </Text>
-                </Box> 
+                <SigninDisplay>
+                  <Box display="flex" alignItems="center">
+                    <img src={userPics ? userPics: "https://i.stack.imgur.com/34AD2.jpg"} style={{ width:"30px", height:"30px", borderRadius:"50%"}}/>
+                    <Text paddingLeft={2} style={{ color: "#0000ff"}}>
+                      Hi {userName}
+                    </Text>
+                  </Box> 
+                </SigninDisplay>
               ) : ""
             }       
 
@@ -237,29 +241,33 @@ const Header = () => {
             {cart_btn}
 
             {/* Sign in Button */}
-            <Link to="/signin">
+            <SignoutDisplay>
+              <Link to="/signin">
+                <Button
+                  size="md"
+                  bg="#0000ff"
+                  color="white"
+                  display={{ base: "none", lg: "block" }}
+                  _hover={{ bg: "#6699FF" }}
+                >
+                  Sign in
+                </Button>
+              </Link>
+            </SignoutDisplay>
+
+            {/* Sign out Button */}
+            <SigninDisplay>
               <Button
                 size="md"
                 bg="#0000ff"
                 color="white"
                 display={{ base: "none", lg: "block" }}
                 _hover={{ bg: "#6699FF" }}
+                onClick={logOut}
               >
-                Sign in
+                Sign out
               </Button>
-            </Link>
-
-            {/* Sign out Button */}
-            <Button
-              size="md"
-              bg="#0000ff"
-              color="white"
-              display={{ base: "none", lg: "block" }}
-              _hover={{ bg: "#6699FF" }}
-              onClick={logOut}
-            >
-              <MdOutlineLogout/>
-            </Button>
+            </SigninDisplay>
 
             {/* Hamburger Icon */}
             <HamburgerIcon
@@ -288,15 +296,21 @@ const Header = () => {
           <div className="mobile-menu-content">
             <Link to="/">Home</Link>
             <Link to="/contact-us">Contact Us</Link>
-            <Link to="/orders">Order</Link>
-            <Link to="/signin">
-              <Button size="md" bg="#0000ff" color="white">
-                Sign in
+            <SigninDisplay>
+              <Link to="/orders">Order</Link>
+            </SigninDisplay>
+            <SignoutDisplay>
+              <Link to="/signin">
+                <Button size="md" bg="#0000ff" color="white">
+                  Sign in
+                </Button>
+              </Link>
+            </SignoutDisplay>
+            <SigninDisplay>
+              <Button size="md" bg="#0000ff" color="white" onClick={logOut}>
+                Signout
               </Button>
-            </Link>
-            <Button size="md" bg="#0000ff" color="white" onClick={logOut}>
-              Signout
-            </Button>
+            </SigninDisplay>
           </div>
         </Box>
       </Box>
