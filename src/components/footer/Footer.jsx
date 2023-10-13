@@ -10,22 +10,24 @@ const Footer = () => {
   const present_year = date.getFullYear();
   return (
     <Grid 
-      templateColumns='repeat(5, 1fr)' 
-      templateRows='repeat(2, 1fr)' 
-      gap={8}
+      templateColumns={{ base: 'repeat(2, 1fr)', md:'repeat(4, 1fr)'}} 
+      templateRows={{ base: 'repeat(2, 1fr)', md: 'repeat(2, 1fr)'}} 
+      gap={{ base: 4, md: 8}}
       w={"100%"}
-      h='250px'
-      pl={{ base: "1.5%", md: "2%", lg: "3.5%" }}
-      pr={{ base: "1.5%", md: "2%", lg: "3.5%" }}
+      h={{ base: "max-content", md: "250px"}}
+      pl={{ base: "2%", lg: "3.5%" }}
+      pr={{ base: "2%", lg: "3.5%" }}
       pt="8px"
       pb="8px"
       borderRadius="8px"
-      bg="#F5F5F5">
+      bg="#F5F5F5"
+      cursor={"pointer"}>
         {/* First column */}
-        <GridItem w='100%' colSpan={1}>
+        <GridItem w='100%' colSpan={{ base: 2, md: 1}}>
           <Box display="flex" flexDirection="column">
             <Image src={logo} alt="logo" width="100px"/>
             <Text color="gray.500">Specializes in providing high-quality, strong electronic devices</Text>
+            <Text color="gray.500" pt="10px"><span style={{ fontWeight: "bold"}}>E-mail: </span> info@kumiastore.com</Text>
           </Box>
         </GridItem>
 
@@ -33,18 +35,21 @@ const Footer = () => {
         <GridItem w='100%' colSpan={1} pt={4}>
           <UnorderedList>
             <List fontWeight="medium">
-              <Stack direction="column" spacing={4}>
+              <Stack direction="column" spacing={2}>
                 <ListItem>
                   <Text fontWeight="bold" fontSize='xl' color="#0000ff">SHOP</Text>
                 </ListItem>
                 <ListItem>
-                  <Text color="gray.500">All Collections</Text>
+                  <Text color="gray.500" _hover={{ color: "#0000ff"}}>All Collections</Text>
                 </ListItem>
                 <ListItem>
-                  <Text color="gray.500">Winter Edition</Text>
+                  <Text color="gray.500" _hover={{ color: "#0000ff"}}>My Wishlist</Text>
                 </ListItem>
                 <ListItem>
-                  <Text color="gray.500">Discount</Text>
+                  <Text color="gray.500" _hover={{ color: "#0000ff"}}>Discount</Text>
+                </ListItem>
+                <ListItem>
+                  <Text color="gray.500" _hover={{ color: "#0000ff"}}>Track My Order</Text>
                 </ListItem>
               </Stack>
             </List>
@@ -55,18 +60,21 @@ const Footer = () => {
         <GridItem w='100%' colSpan={1} pt={4}>
           <UnorderedList>
             <List fontWeight="medium">
-              <Stack direction="column" spacing={4}>
+              <Stack direction="column" spacing={2}>
                 <ListItem>
                   <Text fontWeight="bold" fontSize='md' color="#0000ff">COMPANY</Text>
                 </ListItem>
                 <ListItem>
-                  <Text color="gray.500">About Us</Text>
+                  <Text color="gray.500" _hover={{ color: "#0000ff"}}>About Us</Text>
                 </ListItem>
                 <ListItem>
-                  <Text color="gray.500">Contact</Text>
+                  <Text color="gray.500" _hover={{ color: "#0000ff"}}>Contact</Text>
                 </ListItem>
                 <ListItem>
-                  <Text color="gray.500">Affiliates</Text>
+                  <Text color="gray.500" _hover={{ color: "#0000ff"}}>Terms and Conditions</Text>
+                </ListItem>
+                <ListItem>
+                  <Text color="gray.500" _hover={{ color: "#0000ff"}}>Delivery Information</Text>
                 </ListItem>
               </Stack>
             </List>
@@ -74,40 +82,18 @@ const Footer = () => {
         </GridItem>
 
         {/* Fourth Column */}
-        <GridItem w='100%' colSpan={1} pt={4}>
+        <GridItem w='100%' colSpan={{ base: 2, md: 1}} pt={4}>
           <UnorderedList>
             <List fontWeight="medium">
-              <Stack direction="column" spacing={4}>
-                <ListItem>
-                  <Text fontWeight="bold" fontSize='md' color="#0000ff">SUPPORT</Text>
-                </ListItem>
-                <ListItem>
-                  <Text color="gray.500">FAQS</Text>
-                </ListItem>
-                <ListItem>
-                  <Text color="gray.500">Cookie Policy</Text>
-                </ListItem>
-                <ListItem>
-                  <Text color="gray.500">Terms of Use</Text>
-                </ListItem>
-              </Stack>
-            </List>
-          </UnorderedList>
-        </GridItem>
-
-        {/* Fifth Column */}
-        <GridItem w='100%' colSpan={1} pt={4}>
-          <UnorderedList>
-            <List fontWeight="medium">
-              <Stack direction="column" spacing={4}>
+              <Stack direction="column" spacing={2}>
                 <ListItem>
                   <Text fontWeight="bold" fontSize='md' color="#0000ff">PAYMENT METHODS</Text>
                 </ListItem>
                 {/* The payment gateway logos */}
                 <ListItem>
-                  <Stack direction="row" spacing={2}>
-                    <Image src={MastercardLogo} alt="Mastercard" width="60px" h="40px"/>
-                    <Image src={VisaLogo} alt="Visa" width="30px" />
+                  <Stack direction="row" spacing={2} marginLeft="-10px">
+                    <Image src={MastercardLogo} alt="Mastercard" width="60px"/>
+                    <Image src={VisaLogo} alt="Visa" width="40px" />
                     <Image src={PaypalLogo} alt="PayPal" width="50px"/>
                   </Stack>
                 </ListItem>
@@ -117,7 +103,7 @@ const Footer = () => {
         </GridItem>
         
         {/* Second Row */}
-        <GridItem w='100%' colSpan={5}>
+        <GridItem w='100%' colSpan={{ base: 2, md: 4}}>
           <Text fontWeight="semibold" color="#0000ff" textAlign="center">
               Copyright &copy; {present_year} Kumia. All right reserved.
           </Text>
