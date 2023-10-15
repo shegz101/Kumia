@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
-import { Box } from '@chakra-ui/react';
+import "./Slider.css";
+import { Box, Button, Stack, Text } from '@chakra-ui/react';
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
-import { RxDotFilled } from "react-icons/rx";
 
 const Slider = () => {
   const [isHovered, setIsHovered] = useState(false);
   const slides = [
     {
-      url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKrzZHWwZijd6kr9gRqN9YmLtZKmuUMyfIMw&usqp=CAU"
+      url: "https://images.unsplash.com/photo-1546435770-a3e426bf472b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8SGVhZHNldHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
     },
     {
-      url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO0zBiYAtDgugiLdr70I1XYnfz6S9KIJzdJA&usqp=CAU"
+      url: "https://images.unsplash.com/photo-1605170439002-90845e8c0137?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHBob25lc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
     },
     {
-      url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQC-716IXJktW-W4hG9V3xpGBvpAM6qTc_9TwdBTUGLrsaTdbNVK_HVHd5xCj1hlur4XLk&usqp=CAU"
+      url: "https://images.unsplash.com/photo-1470940511639-1068d7764233?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fGNhbWVyYXN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
     },
     {
-      url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ21ywoBy8jaBYP9FrZVd1TjkLoiPfZjkV5Qw&usqp=CAU"
+      url: "https://images.unsplash.com/photo-1597673030062-0a0f1a801a31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fExhcHRvcHN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
     }
   ];
 
@@ -37,16 +37,20 @@ const Slider = () => {
     setCurrentId(nextId);
   }
 
+  const gotoSlide = (id) => {
+    setCurrentId(id);
+  }
+
   return (
     <Box maxW={1400} mt="-10px"
-    height={780} width={"100%"} position={'relative'} 
+    height={600} width={"100%"} position={'relative'} 
     onMouseEnter={() => setIsHovered(true)}
     onMouseLeave={() => setIsHovered(false)}>
       <Box 
       style={{ backgroundImage:`url(${slides[currentId].url})`}} 
       w="100%" h="100%" 
       bgPosition="center" 
-      bgSize="cover" bgRepeat="no-repeat"/>
+      bgSize="cover" bgRepeat="no-repeat" bgOpacity={0.5}/>
       {
         isHovered && (
           <>
@@ -67,16 +71,31 @@ const Slider = () => {
           </>
         )
       }
+
+      {/* Slide Description */}
+      <Box position={'absolute'} top="35%" left="20%"
+      bg="whiteAlpha.300" width={{ base: "max-content", md: "50rem"}} 
+      height={"max-content"} p={10} margin={"auto"}>
+        <Stack display={"flex"} flexDirection={"column"} color={"white"} alignItems={"center"}>
+          <Text> Men Fashion</Text>
+          <Text> Up to 30% off on all onsale Products</Text>
+          <hr/>
+          <Button width={"max-content"} outline={"none"} borderRadius={5} cursor={"pointer"} 
+          p={3} bg={"#0000ff"} _hover={{ bg: "#6699FF" }} color={"white"}>
+            Shop Now
+          </Button>
+        </Stack>
+      </Box>
+
       {/* Active slide notification */}
       <Box style={{ transform: "translate(-50%, -50%)", }}
        display="flex" p={2} justifyContent="center" 
        alignItems={"center"} top={"90%"} 
        left={"50%"} position="absolute">
         {
-          slides.map((slide, slideId) => (
-            <Box key={slideId} fontSize="2xl" cursor={"pointer"} onClick={() => setCurrentId(slideId)}>
-              <RxDotFilled size={40} color={slideId === currentId ? "#0000ff" : "gray.500"}/>
-            </Box>
+          slides.map((_, slideId) => (
+            <button key={slideId} onClick={() => gotoSlide(slideId)} 
+            className={ currentId === slideId ? "indicator" : "indicator indicator-inactive"}/>
           ))
         }
       </Box>
