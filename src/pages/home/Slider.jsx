@@ -61,8 +61,8 @@ const Slider = () => {
             <Box position="absolute" top={"50%"} 
             left={5} color="white" cursor={"pointer"} 
             borderRadius={50} bg={"blackAlpha.200"} 
-            _hover={{ bg: "blackAlpha.400"}} p={2} fontSize="2xl">
-              <BsChevronCompactLeft size={30} onClick={prevSlide}/>
+            _hover={{ bg: "blackAlpha.400"}} p={2} fontSize="2xl" zIndex={3}>
+              <BsChevronCompactLeft size={30} onClick={prevSlide} />
             </Box>
             {/* Right Icon */}
             <Box position="absolute" top={"50%"} 
