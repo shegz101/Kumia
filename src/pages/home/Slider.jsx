@@ -20,6 +20,9 @@ const Slider = () => {
     }
   ];
 
+  // array of product categories
+  const arr_category = ["HeadPhones & EarPhones", "Mobile Devices", "Cameras", "Laptops & Computers"]
+
   //logic to move through the slides
   const [currentId, setCurrentId] = useState(0);
 
@@ -42,7 +45,7 @@ const Slider = () => {
   }
 
   return (
-    <Box maxW={1400} mt="-10px"
+    <Box maxW={1400}
     height={600} width={"100%"} position={'relative'} 
     onMouseEnter={() => setIsHovered(true)}
     onMouseLeave={() => setIsHovered(false)}>
@@ -50,7 +53,7 @@ const Slider = () => {
       style={{ backgroundImage:`url(${slides[currentId].url})`}} 
       w="100%" h="100%" 
       bgPosition="center" 
-      bgSize="cover" bgRepeat="no-repeat" bgOpacity={0.5}/>
+      bgSize="cover" bgRepeat="no-repeat"/>
       {
         isHovered && (
           <>
@@ -73,14 +76,14 @@ const Slider = () => {
       }
 
       {/* Slide Description */}
-      <Box position={'absolute'} top="35%" left="20%"
-      bg="whiteAlpha.300" width={{ base: "max-content", md: "50rem"}} 
-      height={"max-content"} p={10} margin={"auto"}>
-        <Stack display={"flex"} flexDirection={"column"} color={"white"} alignItems={"center"}>
-          <Text> Men Fashion</Text>
-          <Text> Up to 30% off on all onsale Products</Text>
-          <hr/>
-          <Button width={"max-content"} outline={"none"} borderRadius={5} cursor={"pointer"} 
+      <Box position={'absolute'} top="35%" left="15%"
+      bg="rgba(0, 0, 255, 0.2)" width={{ base: "90%", md: "50rem"}} 
+      height={"max-content"} p={10} margin={"auto"} ml={{ base:"5%", md:"none"}} mr={{ base:"5%", md:"none"}}> 
+        <Stack display={"flex"} flexDirection={"column"} color={"white"}>
+          <Text fontSize={"2xl"} textAlign={"center"}>{ arr_category[currentId] }</Text>
+          <Text textAlign={"center"}>{`Up to 30% off on all ${arr_category[currentId]} products!`}</Text>
+          <hr style={{ fontWeight:"bold"}}/>
+          <Button width={"max-content"} margin="0 auto" outline={"none"} borderRadius={5} cursor={"pointer"} 
           p={3} bg={"#0000ff"} _hover={{ bg: "#6699FF" }} color={"white"}>
             Shop Now
           </Button>

@@ -1,11 +1,13 @@
 import React from "react";
 import { Box } from "@chakra-ui/react";
 import Slider from "./Slider";
+import Category from "./Category";
 
 const Home = () => {
   return (
-    <Box marginTop="10px">
+    <Box>
       <Slider/>
+      <Category/>
     </Box>
   );
 };
